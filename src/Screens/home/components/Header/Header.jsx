@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { Autocomplete } from '@react-google-maps/api';
-import { AppBar, Toolbar, Typography, InputBase, Box } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, InputBase, Box, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { useNavigate } from "react-router-dom";
 
 import useStyles from './styles';
 
 
 const Header = ({ setCoordinates }) => {
+    const navigate = useNavigate();
+
+    const user = JSON.parse(localStorage.getItem('currentuser'));
     const classes = useStyles();
     const [autocomplete, setAutocomplete] = useState(null);
     const onLoad = (autoC) => setAutocomplete(autoC);
@@ -16,11 +21,14 @@ const Header = ({ setCoordinates }) => {
 
         setCoordinates({ lat, lng })
     }
+    const handleClick1 = () => {
+        navigate('/Profile');
+    };
     return (
         <AppBar position='static'>
             <Toolbar className={classes.toolbar}>
                 <Typography variant='h5' className={classes.title}>
-                    Travel Guide
+                    Dhriti Travel Guide
                 </Typography>
                 <Box display="flex">
                     <Typography variant='h6' className={classes.title}>
@@ -35,6 +43,11 @@ const Header = ({ setCoordinates }) => {
                         </div>
                     </Autocomplete>
                 </Box>
+                {user ?
+                    <button type="button" class="btn btn-success" onClick={handleClick1} style={{ width: '55px', height: '44px', alignItems: 'center', marginBottom: '15px' }}>
+                        <AccountCircleIcon />
+                    </button>
+                    : <></>}
             </Toolbar>
         </AppBar>
     )

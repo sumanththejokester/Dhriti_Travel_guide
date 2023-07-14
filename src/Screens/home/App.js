@@ -17,8 +17,6 @@ const App = () => {
 
     const [filteredPlaces, setfilteredPlaces] = useState([]);
 
-    const [weatherData, setWeatherData] = useState([]);
-
     const [isLoding, setisLoding] = useState(false);
     const [type, setType] = useState('restaurants');
     const [rating, setRating] = useState('');
@@ -33,7 +31,7 @@ const App = () => {
 
         if (bounds) {
             setisLoding(true);
-            getWeatherData(coordinates.lat, coordinates.lng).then((data) => setWeatherData(data));
+
             getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
                 console.log(data);
                 setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
@@ -45,28 +43,32 @@ const App = () => {
     }, [type, bounds]);
 
     useEffect(() => {
-        const filteredPlaces = places.filter((place) => place.rating > rating);
-        setfilteredPlaces(filteredPlaces);
+        const filtered = places.filter((place) => Number(place.rating) > rating);
+
+        setfilteredPlaces(filtered);
     }, [rating]);
 
     return (
         <>
-            <CssBaseline />
-            <Header setCoordinates={setCoordinates} />
-            <Grid container spacing={3} style={{ width: '100%' }} >
-                <Grid item xs={12} md={4}>
-                    <List places={filteredPlaces.length ? filteredPlaces : places} childClicked={childClicked} isLoding={isLoding} type={type} setType={setType} rating={rating} setRating={setRating} />
+            <div style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1499678329028-101435549a4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")' }}>
+                <CssBaseline />
+                <Header setCoordinates={setCoordinates} />
+                <br />
+                <Grid container spacing={3} style={{ width: '100%', marginLeft: '0.5px' }} >
+                    <Grid item xs={12} md={4} >
+                        <List places={filteredPlaces.length ? filteredPlaces : places} childClicked={childClicked} isLoding={isLoding} type={type} setType={setType} rating={rating} setRating={setRating} />
+                    </Grid>
+                    <Grid item xs={12} md={8} style={{ border: '0.5px solid white' }}>
+                        <Map setCoordinates={setCoordinates}
+                            setBounds={setBounds}
+                            coordinates={coordinates}
+                            places={filteredPlaces.length ? filteredPlaces : places}
+                            setChildClicked={setChildClicked}
+                        />
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={8}>
-                    <Map setCoordinates={setCoordinates}
-                        setBounds={setBounds}
-                        coordinates={coordinates}
-                        places={filteredPlaces.length ? filteredPlaces : places}
-                        setChildClicked={setChildClicked}
-                        weatherData={weatherData}
-                    />
-                </Grid>
-            </Grid>
+            </div>
+
         </>
 
     )

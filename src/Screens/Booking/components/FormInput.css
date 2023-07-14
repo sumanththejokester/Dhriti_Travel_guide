@@ -1,0 +1,38 @@
+.formInput {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
+
+input {
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+::placeholder {
+    color: gainsboro;
+}
+
+label {
+    font-size: 14px;
+    color: white;
+}
+
+span {
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+}
+
+input:invalid[focused="true"] {
+    border: 1px solid red;
+}
+
+input:invalid[focused="true"]~span {
+    display: block;
+}

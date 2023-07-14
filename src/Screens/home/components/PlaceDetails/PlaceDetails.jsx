@@ -5,10 +5,12 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import Rating from '@material-ui/lab/Rating'
 
 import useStyles from './styles';
-import { Height } from '@material-ui/icons';
 
 
 const PlaceDetails = ({ place, selected, refProp }) => {
+  async function addcart() {
+
+  };
   const classes = useStyles();
   if (selected) refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   return (
@@ -59,6 +61,9 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         </Button>
         <Button size="sm all" color="primary" onClick={() => window.open(place.website, '_blank')}>
           Website
+        </Button>
+        <Button size="sm all" color="primary" onClick={addcart}>
+          Add to Cart
         </Button>
       </CardActions>
     </Card>
