@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var mongoURL = 'mongodb://localhost:27017/AppDB';
+var mongoURL = 'mongodb+srv://sumanthbadugu07:sumanth@cluster0.8mykts1.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true });
 
