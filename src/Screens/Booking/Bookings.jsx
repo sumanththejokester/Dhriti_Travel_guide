@@ -1,10 +1,10 @@
 import React from 'react';
-import MainHeader from '../../components/MainHeader/MainHeader';
+import MainHeader from './components/MainHeader/MainHeader';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import useStyles from './styles';
 import { CircularProgress, colors } from '@material-ui/core';
-import FormInput from '../Booking/components/FormInput'
+import FormInput from '../Booking/components/FormInput2'
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Bookings = () => {
@@ -19,14 +19,21 @@ const Bookings = () => {
     const [loading, setLoading] = useState();
     const [error, setError] = useState();
     const [bookings, setBookings] = useState([]);
+    const [success, setSuccess] = useState(false);
+
+
 
     useEffect(async () => {
         try {
             setLoading(true);
+            const user = JSON.parse(localStorage.getItem('currentuser'));
+            console.log(user.data._id);
+
             const response = await axios.get('/Bookings/Bookings');
             const filteredBookings = response.data.bookings.filter(
-                (booking) => !booking.isBooked
+                (booking) => !booking.isBooked && booking.userid === user.data._id
             );
+            console.log(filteredBookings)
             setBookings(filteredBookings);
             setLoading(false);
         } catch (error) {
@@ -84,25 +91,49 @@ const Bookings = () => {
         e.preventDefault();
     };
 
-    async function update() {
-        const booking = {
-            username: values.username,
-            email: values.email,
-            from: values.from,
-            to: values.to,
-            count: values.count,
-        };
+    const update = async () => {
+        // Set the same username and email for all bookings
+        const username = values.username;
+        const email = values.email;
+
+        // Update the bookings displayed on the screen with new values
+        const updatedBookings = bookings.map((booking) => {
+            const user = JSON.parse(localStorage.getItem('currentuser'));
+
+            if (booking.isBooked == false && booking.userid === user.data._id) {
+                return {
+                    ...booking,
+                    username,
+                    email,
+                    count: values.count,
+                    from: values.from,
+                    to: values.to,
+                    isBooked: true,
+                };
+            } else {
+                return booking;
+            }
+        });
 
         try {
             setLoading(true);
-            const result = await axios.post('/Bookings/Bookings', booking);
+            // Update the server with the new bookings data
+            const response = await axios.post('/Bookings/Bookings', updatedBookings);
             setLoading(false);
+            // Update the local state with the updated bookings
+            const user = JSON.parse(localStorage.getItem('currentuser'));
+
+            const filteredBookings = response.data.bookings.filter(
+                (booking) => !booking.isBooked && booking.userid === user.data._id
+            );
+            setBookings(filteredBookings);
+            setSuccess(true);
         } catch (error) {
             console.log(error);
             setLoading(false);
             setError(true);
         }
-    }
+    };
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -110,9 +141,13 @@ const Bookings = () => {
     const handleDelete = async (bookingId) => {
         try {
             setLoading(true);
+
+            // Send a request to delete the booking with the given ID from the server
             await axios.delete(`/Bookings/Bookings/${bookingId}`);
-            const updatedBookings = bookings.filter(booking => booking._id !== bookingId);
-            setBookings(updatedBookings);
+
+            // Update the local state to remove the deleted booking
+            setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== bookingId));
+
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -120,6 +155,8 @@ const Bookings = () => {
             setError(true);
         }
     };
+
+
 
     return (
         <>
@@ -134,7 +171,7 @@ const Bookings = () => {
                     <div class="alert alert-danger" role="alert">
                         Something went wrong!
                     </div>
-                ) : (
+                ) : success ? (<div class="alert alert-success" role="alert">Made Booking Success!</div>) : (
                     <div className={classes.tableContainer}>
                         <style>
                             {`
@@ -151,18 +188,23 @@ const Bookings = () => {
 
                   th:nth-child(2),
                   td:nth-child(2) {
-                    width: 20%;
+                    width: 15%;
                     word-wrap: break-word;
                   }
 
                   th:nth-child(3),
                   td:nth-child(3) {
-                    width: 39%;
+                    width: 34%;
                     word-wrap: break-word;
                   }
 
                   th:nth-child(4),
                   td:nth-child(4) {
+                    width: 10%;
+                    word-wrap: break-word;
+                  }
+                  th:nth-child(5),
+                  td:nth-child(5) {
                     width: 34%;
                     word-wrap: break-word;
                   }
@@ -175,6 +217,7 @@ const Bookings = () => {
                                         <th className={classes.tableCell}>ID</th>
                                         <th className={classes.tableCell}>Name</th>
                                         <th className={classes.tableCell}>Address</th>
+                                        <th className={classes.tableCell}>Price</th>
                                         <th className={classes.tableCell}>Action</th>
                                     </tr>
                                 </thead>
@@ -184,6 +227,7 @@ const Bookings = () => {
                                             <td className={classes.tableCell}>{index + 1}</td>
                                             <td className={classes.tableCell}>{booking.name}</td>
                                             <td className={classes.tableCell}>{booking.address}</td>
+                                            <td className={classes.tableCell}>{booking.price}</td>
                                             <td className={classes.tableCell}>
                                                 <div className={classes.form1} onSubmit={handleSubmit}>
                                                     <div className={classes.dateFields}>
@@ -244,6 +288,7 @@ const Bookings = () => {
                             <button className="btn" onClick={update}>
                                 Make Booking
                             </button>
+
                         </div>
                         <br />
                     </div>

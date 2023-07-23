@@ -1,5 +1,6 @@
 import { colors } from '@material-ui/core';
 import { alpha, makeStyles } from '@material-ui/core/styles';
+import { FormatBold } from '@material-ui/icons';
 
 export default makeStyles((theme) => ({
     loading: {
@@ -52,8 +53,8 @@ export default makeStyles((theme) => ({
         backgroundAttachment: 'fixed',
         overflow: 'hidden',
     },
-    form: {
-        width: '25%',
+    box: {
+        width: '55%',
         margin: '0 auto',
         border: '1px solid #ccc',
         borderRadius: '5px',
@@ -65,14 +66,14 @@ export default makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    form1: {
-        width: '90%',
+
+    box1: {
+        width: '80%',
         margin: '0 auto',
         border: '1px solid #ccc',
         borderRadius: '5px',
-        marginTop: '35px',
-        marginBottom: '35px',
-        backgroundColor: (theme.palette.common.black),
+        padding: '34px',
+        backgroundColor: theme.palette.common.black,
         opacity: 0.6,
         display: 'flex',
         flexDirection: 'column',
@@ -80,43 +81,16 @@ export default makeStyles((theme) => ({
     },
     label: {
         color: 'white',
-        fontSize: '20px'
+        fontSize: '15px'
+    },
+    value: {
+        fontSize: '15px',
+        color: 'green'
     },
     h1: {
         color: 'white',
         textAlign: 'center',
         marginTop: '10px'
-    },
-    dateFields: {
-        display: 'flex',
-        justifyContent: 'center',
-        width: '50%',
-        margin: '0 auto',
-        paddingLeft: '8px',
-        color: 'white',
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-        '& > *': {
-            marginRight: theme.spacing(1),
-        },
-    },
-
-    countTrashFields: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '50%',
-        margin: '0 auto',
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    },
-
-    deleteIcon: {
-        color: 'red',
-        fontSize: '1.5rem',
-    },
-    trshbtn: {
-        paddingLeft: '5px',
     },
     formInput: {
         padding: '8px',
@@ -126,5 +100,36 @@ export default makeStyles((theme) => ({
         border: '1px solid white',
         backgroundColor: alpha(theme.palette.common.white, 0.25),
 
+    },
+    deleteIcon: {
+        color: 'red',
+        fontSize: '1.5rem',
+    },
+    status: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+
+    btn: {
+        width: '80%',
+        height: '50px',
+        padding: '10px',
+        backgroundColor: 'white',
+        color: 'red',
+        borderRadius: '5px',
+        fontSize: '18px',
+        cursor: 'pointer',
+        marginTop: '15px',
+        marginBottom: '30px',
+    },
+    confirm: {
+        width: '50%',
+        height: '34px',
+        border: '1px solid white',
+        color: theme.palette.common.white,
+        backgroundColor: 'green',
+        opacity: 0.6,
+        borderRadius: '4px',
     }
 }));

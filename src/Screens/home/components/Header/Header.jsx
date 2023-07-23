@@ -24,10 +24,13 @@ const Header = ({ setCoordinates }) => {
     const handleClick1 = () => {
         navigate('/Profile');
     };
+    const handleClick = () => {
+        navigate('/home');
+    }
     return (
         <AppBar position='static'>
             <Toolbar className={classes.toolbar}>
-                <Typography variant='h5' className={classes.title}>
+                <Typography variant='h5' className={classes.title} onClick={handleClick}>
                     Dhriti Travel Guide
                 </Typography>
                 <Box display="flex">

@@ -1,7 +1,6 @@
 import React from 'react'
 import App from './Screens/home/App'
 import Login from './Screens/auth/register/Login'
-import MainHeader from './components/MainHeader/MainHeader'
 import SplashScreen from './Screens/splashscreen/SplashScreen'
 import Register from './Screens/auth/register/Register'
 import Bookings from './Screens/Booking/Bookings'

@@ -3,13 +3,30 @@ import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chi
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Rating from '@material-ui/lab/Rating'
-
+import axios from 'axios';
 import useStyles from './styles';
 
 
 const PlaceDetails = ({ place, selected, refProp }) => {
   async function addcart() {
+    const user = JSON.parse(localStorage.getItem('currentuser'));
+    const data = {
+      name: place.name,
+      address: place.address,
+      price: place.price_level,
+      userid: user.data._id,
+    };
 
+    try {
+      // Send a POST request to the server to add the place to the cart
+      const response = await axios.post('/Bookings/Bookings', data);
+      // Handle the response if needed
+      console.log('Place added to cart:', response.data);
+      // You can show a success message to the user if needed
+    } catch (error) {
+      console.error('Error adding place to cart:', error);
+      // You can show an error message to the user if needed
+    }
   };
   const classes = useStyles();
   if (selected) refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });

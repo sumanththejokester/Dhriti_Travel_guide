@@ -9,8 +9,9 @@ input {
     margin: 10px 0px;
     border-radius: 10px;
     border: 1px solid white;
-    background-color: transparent;
-    opacity: 0.5;
+    background-color: black;
+    color: white;
+    opacity: 0.6;
 }
 
 ::placeholder {

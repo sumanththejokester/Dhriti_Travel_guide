@@ -49,6 +49,7 @@ const Login = () => {
             const result = await axios.post('/Users/Login', user);
             setloading(false);
             localStorage.setItem('currentuser', JSON.stringify(result));
+            console.log(result);
             window.location.href = '/home';
         } catch (error) {
 
@@ -87,7 +88,7 @@ const Login = () => {
                     <div>
                         <div class="alert alert-danger" role="alert">
                             Invalid Credentials!
-                            <a href="/">Go to Home</a>
+                            <a href="/"> Go to Home</a>
                         </div>
                         <br />
                     </div>

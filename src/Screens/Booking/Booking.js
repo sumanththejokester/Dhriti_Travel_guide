@@ -19,13 +19,22 @@ const bookingSchema = mongoose.Schema({
         required: true,
         default: false,
     },
-    date: {
+    from: {
         type: String,
+    },
+    to: {
+        type: String,
+    },
+    price: {
+        type: String
     },
     username: {
         type: String,
     },
     email: {
+        type: String,
+    },
+    userid: {
         type: String,
     }
 })

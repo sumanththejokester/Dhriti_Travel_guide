@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import FormInput from '../components/FormInput'
+import FormInput from '../components/FormInput';
 import "../register/styles.css"
 import { CircularProgress } from '@material-ui/core'
 
@@ -86,6 +86,7 @@ const Register = () => {
             values.birthday = "";
             values.password = "";
             values.confirmPassword = "";
+            window.location.href = '/Login';
         } catch (error) {
             console.log(error)
             setloading(false);
@@ -123,7 +124,7 @@ const Register = () => {
                     <div>
                         <div class="alert alert-danger" role="alert">
                             Something went wrong!
-                            <a href="/">Go to home </a>
+                            <a href="/"> Go to home </a>
                         </div>
                         <br />
                     </div>
