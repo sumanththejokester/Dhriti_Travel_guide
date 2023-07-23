@@ -73,7 +73,7 @@ router.post('/Login', async (req, res) => {
 
 });
 
-router.post('/Bookings', async (req, res) => {
+router.put('/Bookings', async (req, res) => {
     const updatedBookings = req.body;
     try {
         // Assuming each element of updatedBookings array contains an updated booking object with _id field

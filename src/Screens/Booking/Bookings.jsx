@@ -118,7 +118,7 @@ const Bookings = () => {
         try {
             setLoading(true);
             // Update the server with the new bookings data
-            const response = await axios.post('/Bookings/Bookings', updatedBookings);
+            const response = await axios.put('/Bookings/Bookings', updatedBookings);
             setLoading(false);
             // Update the local state with the updated bookings
             const user = JSON.parse(localStorage.getItem('currentuser'));
