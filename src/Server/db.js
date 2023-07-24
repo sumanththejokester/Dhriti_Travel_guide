@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var mongoURL = process.env.MONGO_URI;
+var mongoURL = 'mongodb+srv://sumanthbadugu07:sumanth@cluster0.8mykts1.mongodb.net/?retryWrites=true&w=majority';
 
 mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true });
 
