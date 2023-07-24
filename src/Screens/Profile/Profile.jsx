@@ -72,8 +72,10 @@ const Profile = () => {
                     Something went wrong!
                 </div>) : success ? (<div class="alert alert-success" role="alert">Made Booking Success!</div>
                 ) : (
-                    <div className={classes.tableContainer}>
-                        <style>{`
+                    <div>
+                        <h1>My Bookings</h1>
+                        <div className={classes.tableContainer}>
+                            <style>{`
                   table {
                     table-layout: fixed;
                     width: 80%;
@@ -109,61 +111,61 @@ const Profile = () => {
                     word-wrap: break-word;
                   }
                 `}</style>
-                        {bookings !== '' ? (
-                            <table className={classes.table}>
-                                <thead className={classes.tableHead}>
-                                    <tr>
-                                        <th className={classes.tableCell}>ID</th>
-                                        <th className={classes.tableCell}>Name</th>
-                                        <th className={classes.tableCell}>Address</th>
-                                        <th className={classes.tableCell}>Booking Details</th>
-                                        <th className={classes.tableCell}>Status / Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {bookings.map((booking, index) => (
-                                        <tr key={index}>
-                                            <td className={classes.tableCell}>{index + 1}</td>
-                                            <td className={classes.tableCell}>{booking.name}</td>
-                                            <td className={classes.tableCell}>{booking.address}</td>
-                                            <td className={classes.tableCell}>
-                                                {
-                                                    <div className={classes.box1}>
-                                                        <div className={classes.label}>Username:</div>
-                                                        <div className={classes.value}>{booking.username}</div>
-                                                        <div className={classes.label}>Email:</div>
-                                                        <div className={classes.value}>{booking.email}</div>
-                                                        <div className={classes.label}>Count:</div>
-                                                        <div className={classes.value}>{booking.count}</div>
-                                                        <div className={classes.label}>Price:</div>
-                                                        <div className={classes.value}>{booking.price}</div>
-                                                        <div className={classes.label}>From / To:</div>
-                                                        <div className={classes.value}>{`${booking.from} - ${booking.to}`}</div>
-                                                    </div>
-                                                }
-                                            </td>
-                                            <td className={classes.tableCell}>
-                                                <Box className={classes.status}>
-                                                    <button className={classes.confirm}>✅ Confirmed</button>
-                                                    <button className={`${classes.trashIconBtn} ${classes.formInput} material-icons`} onClick={() => handleDelete(booking._id)}>
-                                                        <DeleteIcon className={classes.deleteIcon} />
-                                                    </button>
-                                                </Box>
-                                            </td>
+                            {bookings !== '' ? (
+                                <table className={classes.table}>
+                                    <thead className={classes.tableHead}>
+                                        <tr>
+                                            <th className={classes.tableCell}>ID</th>
+                                            <th className={classes.tableCell}>Name</th>
+                                            <th className={classes.tableCell}>Address</th>
+                                            <th className={classes.tableCell}>Booking Details</th>
+                                            <th className={classes.tableCell}>Status / Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {bookings.map((booking, index) => (
+                                            <tr key={index}>
+                                                <td className={classes.tableCell}>{index + 1}</td>
+                                                <td className={classes.tableCell}>{booking.name}</td>
+                                                <td className={classes.tableCell}>{booking.address}</td>
+                                                <td className={classes.tableCell}>
+                                                    {
+                                                        <div className={classes.box1}>
+                                                            <div className={classes.label}>Username:</div>
+                                                            <div className={classes.value}>{booking.username}</div>
+                                                            <div className={classes.label}>Email:</div>
+                                                            <div className={classes.value}>{booking.email}</div>
+                                                            <div className={classes.label}>Count:</div>
+                                                            <div className={classes.value}>{booking.count}</div>
+                                                            <div className={classes.label}>Price:</div>
+                                                            <div className={classes.value}>{booking.price}</div>
+                                                            <div className={classes.label}>From / To:</div>
+                                                            <div className={classes.value}>{`${booking.from} - ${booking.to}`}</div>
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td className={classes.tableCell}>
+                                                    <Box className={classes.status}>
+                                                        <button className={classes.confirm}>✅ Confirmed</button>
+                                                        <button className={`${classes.trashIconBtn} ${classes.formInput} material-icons`} onClick={() => handleDelete(booking._id)}>
+                                                            <DeleteIcon className={classes.deleteIcon} />
+                                                        </button>
+                                                    </Box>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
 
-                        ) : (
-                            <div
-                                className={`${classes.noPosts} alert alert-dark`}
-                                role="alert"
-                            >
-                                No Bookings Found in Cart!
-                            </div>
-                        )}
-                    </div>)}
+                            ) : (
+                                <div
+                                    className={`${classes.noPosts} alert alert-dark`}
+                                    role="alert"
+                                >
+                                    No Bookings Found in Cart!
+                                </div>
+                            )}
+                        </div></div>)}
             </div>
 
         </>
